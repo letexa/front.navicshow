@@ -20,5 +20,12 @@
     "typings": "^2.1.1",
     "lite-server": "^2.4.0"
   },
-  "scripts": {}
+  "scripts": {
+    "start": "concurrently \"npm run tscwatch\" \"npm run lite\" ",
+    "tsc": "tsc",
+    "tscwatch": "tsc -w",
+    "lite": "lite-server",
+    "typings": "typings",
+    "postinstall": "typings install"
+  }
 }
