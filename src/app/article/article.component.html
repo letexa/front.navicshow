@@ -1,1 +1,7 @@
-Тут будут статьи
+<div class="col-xs-9 p-a-1">  
+    <div *ngFor="let article of articles" class="card card-outline-primary">
+        <h4 class="card-header">
+            {{article.title}}
+        </h4>
+    </div>   
+</div>

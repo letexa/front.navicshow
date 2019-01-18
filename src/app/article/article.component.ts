@@ -10,11 +10,9 @@ import { ArticleRepository } from "../model/article.repository";
 
 export class ArticleComponent {
     
-    constructor(private repository: ArticleRepository) {
-        this.getArticles();
-    }
+    constructor(private repository: ArticleRepository) { }
     
-    getArticles(): Article[] {
+    get articles(): Article[] {
         return this.repository.getArticles();
     }
 }

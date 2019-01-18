@@ -21,7 +21,13 @@ export class RestDataSource {
             url: this.baseUrl + '/article/list?authorization=A6V5ElpWSfhWKdk18WoSBvsxKo4yC8sHAm6GlqUKLMoEfHx7ZUjpPlvMsvUtKwZKEUdWUE'
         }));
         
-        return res.map(response => response.json());
+        return res.map(response => {
+            if (response.ok) {
+                return response.json().message;
+            } else {
+                throw new Error('REST ERROR!');
+            }
+        });
     }
     
 }
