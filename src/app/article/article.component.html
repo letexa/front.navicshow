@@ -1,8 +1,32 @@
+<div class="navbar navbar-inverse bg-inverse">  
+    <h1>Navicshoe</h1>  
+</div>  
+<div class="row">
+    <div class="col-sm p-3">
+        <button class="btn btn-block btn-outline-primary">
+            Home
+        </button>
+    </div>
+    <div class="col-sm p-3">
+        <button class="btn btn-block btn-outline-primary">
+            Add article
+        </button>
+    </div>
+    <div class="col-sm p-3">
+        <button class="btn btn-block btn-outline-primary">
+            Categories
+        </button>
+    </div>
+</div>  
 <div class="col-xs-9 p-a-1">  
-    <div *ngFor="let article of articles" class="card card-outline-primary">
+    <div *ngFor="let article of articles" class="card card-outline-primary mb-3">
         <h4 class="card-header">
             {{article.title}}
         </h4>
-        <p>{{article.text}}</p>
+        <p class="p-3">{{article.text}}</p>
+        <div>
+            <a href="#" class="p-3">Edit</a>
+            <a href="#">Delete</a>
+        </div>
     </div>   
 </div>

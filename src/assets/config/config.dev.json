@@ -2,18 +2,6 @@
     "env": {
         "name": "DEV"
     },
-    "appInsights": {
-        "instrumentationKey": "<dev-guid-here>"
-    },
-    "logging": {
-        "console": true,
-        "appInsights": false
-    },
-    "aad": {
-        "requireAuth": true,
-        "tenant": "<dev-guid-here>",
-        "clientId": "<dev-guid-here>"
-    },
     "apiServer": {
         "protocol": "http",
         "host": "api.navicshow.loc",
