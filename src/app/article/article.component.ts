@@ -3,7 +3,6 @@ import { Article } from "../model/article.model";
 import { ArticleRepository } from "../model/article.repository";
 
 @Component({
-    selector: 'article',
     moduleId: module.id,
     templateUrl: 'article.component.html'
 })
