@@ -11,7 +11,7 @@ import { AppConfig } from './app.config';
 
 import { ArticleComponent } from './article/article.component';
 import { ArticleViewerComponent } from './article/articleViewer.component';
-import { ArticleRepository } from './model/article.repository';
+import { ArticleDetailResolve } from './model/article.detail.resolve';
 
 export function initializeApp(appConfig: AppConfig) {
     return () => appConfig.load();
@@ -19,7 +19,7 @@ export function initializeApp(appConfig: AppConfig) {
 
 const appRoutes: Routes =[
     { path: "", component:  ArticleComponent },
-    { path: "article/:id", component:  ArticleViewerComponent, resolve: { article: ArticleRepository } },
+    { path: "article/:id", component:  ArticleViewerComponent, resolve: { article: ArticleDetailResolve } },
     { path: "**", redirectTo: "/" }
 ];
 
@@ -39,7 +39,8 @@ const appRoutes: Routes =[
         AppConfig,
         { provide: APP_INITIALIZER,
          useFactory: initializeApp,
-         deps: [AppConfig], multi: true }
+         deps: [AppConfig], multi: true },
+        ArticleDetailResolve
   ],
   bootstrap: [AppComponent]
 })

@@ -35,4 +35,19 @@ export class RestDataSource {
         });
     }
     
+    getArticle(id: number): Observable<Article> {
+        var res = this.http.request(new Request({
+            method: RequestMethod.Get,
+            url: this.protocol + '://' + this.baseUrl + '/article/'+id+'?authorization=' + this.token
+        }));
+        
+        return res.map(response => {
+            if (response.ok) {
+                return response.json().message;
+            } else {
+                throw new Error('REST ERROR!');
+            }
+        });
+    }
+    
 }

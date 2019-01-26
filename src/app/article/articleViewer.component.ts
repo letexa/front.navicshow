@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Article } from "../model/article.model";
-import { ArticleRepository } from "../model/article.repository";
 import { ActivatedRoute } from '@angular/router';
+import "rxjs/add/operator/map";
 
 @Component({
     templateUrl: 'articleViewer.component.html'
@@ -11,10 +11,12 @@ export class ArticleViewerComponent {
     
     private article: Article = new Article();
     
-    constructor(private repository: ArticleRepository,
-                private activatedRoute: ActivatedRoute) { }
+    constructor(private activatedRoute: ActivatedRoute) { }
     
-    ngOnInit(): void {
-        Object.assign(this.article, this.repository.getArticle(this.activatedRoute.snapshot.params['id']));
+    ngOnInit() {
+        this.activatedRoute.data.subscribe(({ article }) => {
+            this.article = article;
+        });
     }
+    
 }
