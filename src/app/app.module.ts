@@ -7,10 +7,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ArticleModule } from './article/article.module';
 import { ArticleViewerModule } from './article/articleViewer.module';
+import { ArticleEditorModule } from './article/articleEditor.module';
 import { AppConfig } from './app.config';
 
 import { ArticleComponent } from './article/article.component';
 import { ArticleViewerComponent } from './article/articleViewer.component';
+import { ArticleEditorComponent } from './article/articleEditor.component';
 import { ArticleDetailResolve } from './model/article.detail.resolve';
 
 export function initializeApp(appConfig: AppConfig) {
@@ -20,6 +22,7 @@ export function initializeApp(appConfig: AppConfig) {
 const appRoutes: Routes =[
     { path: "", component:  ArticleComponent },
     { path: "article/:id", component:  ArticleViewerComponent, resolve: { article: ArticleDetailResolve } },
+    { path: "article/edit/:id", component:  ArticleEditorComponent, resolve: { article: ArticleDetailResolve } },
     { path: "**", redirectTo: "/" }
 ];
 
@@ -33,6 +36,7 @@ const appRoutes: Routes =[
     HttpModule,
     ArticleModule,
     ArticleViewerModule,
+    ArticleEditorModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

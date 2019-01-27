@@ -6,7 +6,7 @@
         <p class="p-3">{{article.text}}</p>
         <div>
             <a class="p-2" [routerLink] = "['/article', article.id]">View</a>
-            <a href="#" class="p-2">Edit</a>
+            <a class="p-2" [routerLink] = "['/article/edit', article.id]">Edit</a>
             <a href="#" class="p-2">Delete</a>
         </div>
     </div>   
