@@ -1,19 +1,12 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { ModelModule } from '../model/model.module';
-import { ArticleComponent } from './article.component';
-import { ArticleViewerComponent } from './articleViewer.component';
+import { AppRoutingModule } from '../../app-routing.module';
+import { MenuComponent } from './menu.component';
 
 @NgModule({
-  declarations: [ArticleComponent],
+  declarations: [MenuComponent],
   imports: [
-    BrowserModule,
-    FormsModule,
-    ModelModule,
-    RouterModule
+    AppRoutingModule,
   ],
-  exports: [ArticleComponent],
+  exports: [MenuComponent],
 })
-export class ArticleModule { }
+export class MenuModule { }
