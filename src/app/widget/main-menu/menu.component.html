@@ -1,0 +1,13 @@
+<div class="col-xs-9 p-a-1">  
+    <div *ngFor="let article of articles" class="card card-outline-primary mb-3">
+        <h4 class="card-header">
+            {{article.title}}
+        </h4>
+        <p class="p-3">{{article.text}}</p>
+        <div>
+            <a class="p-2" [routerLink] = "['/article', article.id]">View</a>
+            <a class="p-2" [routerLink] = "['/article/edit', article.id]">Edit</a>
+            <a href="#" class="p-2">Delete</a>
+        </div>
+    </div>   
+</div>

@@ -1,16 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ModelModule } from '../model/model.module';
-import { ArticleEditorComponent } from './articleEditor.component';
+import { ArticleComponent } from './article.component';
+import { ArticleViewerComponent } from './articleViewer.component';
 
 @NgModule({
-  declarations: [ArticleEditorComponent],
+  declarations: [ArticleComponent],
   imports: [
     BrowserModule,
+    FormsModule,
     ModelModule,
     RouterModule
   ],
-  exports: [ArticleEditorComponent],
+  exports: [ArticleComponent],
 })
-export class ArticleEditorModule { }
+export class ArticleModule { }
