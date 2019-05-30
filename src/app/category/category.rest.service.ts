@@ -8,8 +8,15 @@ export class CategoryRest {
 
     constructor(private rest: RestService) { }
 
+    all(callback) {
+      return this.rest.get('category/list')
+        .subscribe((res) => {
+          return callback(res);
+        });
+    }
+
     addCategory(newCategory: Category, callback) {
-      this.rest.get()
+      this.rest.put('category/create', { name: newCategory.name })
         .subscribe((res) => {
           callback(res);
         });
