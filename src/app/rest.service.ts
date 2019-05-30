@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AppConfig } from './app.config';
 
@@ -21,7 +21,7 @@ export class RestService {
    * Отправление GET запроса в api
    * @param data Объект с параметрами
    */
-  get(uri: string, data?: object) {
+  get(uri: string, data?: object): Observable<any> {
 
     if (data) {
       for (let key in data) {
@@ -38,7 +38,7 @@ export class RestService {
       );
   }
 
-  put(uri: string, data: object) {
+  put(uri: string, data: object): Observable<any> {
     return this.http.put(
       this.apiServer.protocol + '://' + this.apiServer.host + '/' + uri, 
       data, 
