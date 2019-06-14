@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Category } from '../category.model';
 import { CategoryRest } from '../category.rest.service';
+import { ActivatedRoute } from "@angular/router";
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'list-app',
@@ -11,8 +13,16 @@ export class ListComponent {
 
     private categories: Category[] = [];
 
-    constructor(private repository: CategoryRest) { 
-        this.repository.all()
+    private subscription: Subscription;
+
+    private page: number;
+
+    constructor(private repository: CategoryRest, activeRoute: ActivatedRoute,) {
+        this.subscription = activeRoute.params.subscribe(params => {
+            this.page = params['page'] ? params['page'] : 1;
+        });
+        
+        this.repository.all(this.page)
             .toPromise()
             .then((data: any) => {
                 if (data.code == 200 && data.message) {

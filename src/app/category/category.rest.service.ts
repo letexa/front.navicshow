@@ -8,8 +8,12 @@ export class CategoryRest {
 
     constructor(private rest: RestService) { }
 
-    all(): Observable<any> {
-      return this.rest.get('category/list');
+    all(page: number): Observable<any> {
+      let params = {
+        'limit': 3,
+        'offset': page
+      };
+      return this.rest.get('category/list', params);
     }
 
     addCategory(newCategory: Category, callback) {

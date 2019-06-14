@@ -5,6 +5,7 @@ import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
   { path: '', component: ListComponent },
+  { path: ':page', component: ListComponent },
   { path: 'add', component: EditComponent },
 ];
 
