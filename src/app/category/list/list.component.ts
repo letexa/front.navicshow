@@ -15,7 +15,15 @@ export class ListComponent {
 
     private subscription: Subscription;
 
+    /**
+     * Номер текущей страницы
+     */
     private page: number;
+
+    /**
+     * Всего категорий
+     */
+    private count: number;
 
     constructor(private repository: CategoryRest, activeRoute: ActivatedRoute,) {
         this.subscription = activeRoute.params.subscribe(params => {
@@ -28,7 +36,15 @@ export class ListComponent {
                 if (data.code == 200 && data.message) {
                     this.categories = data.message;
                 }
-            });;
+            });
+
+        this.repository.count()
+        .toPromise()
+        .then((data: any) => {
+            if (data.code == 200 && data.message) {
+                this.count = data.message;
+            }
+        });
     }
 
     get list() {

@@ -7,4 +7,7 @@ export interface IAppConfig {
       host: string,
       token: string;
   };
+  category: {
+      limit: number;
+  };
 }
