@@ -7,10 +7,13 @@ import { AppConfig } from '../app.config';
 @Injectable()
 export class CategoryRest {
 
+    public limit: number;
+
     private config;
 
     constructor(private rest: RestService) { 
       this.config = AppConfig.settings.category;
+      this.limit = this.config.limit;
     }
 
     /**
@@ -20,7 +23,7 @@ export class CategoryRest {
      */
     all(page: number): Observable<any> {
       let params = {
-        'limit': this.config.limit,
+        'limit': this.limit,
         'offset': page
       };
       return this.rest.get('category/list', params);

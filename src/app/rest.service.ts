@@ -25,15 +25,18 @@ export class RestService {
 
     if (data) {
       for (let key in data) {
-        this.httpOptions.params = this.httpOptions.params.append(key, data[key]);
+        if (this.httpOptions.params.get(key)) {
+          this.httpOptions.params = this.httpOptions.params.set(key, data[key]);
+        } else {
+          this.httpOptions.params = this.httpOptions.params.append(key, data[key]);
+        }
       }
     }
 
     return this.http.get(
         this.apiServer.protocol + '://' + this.apiServer.host + '/' + uri,
         this.httpOptions
-      )
-      .pipe(
+      ).pipe(
         catchError(this.handleError)
       );
   }
