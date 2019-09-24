@@ -1,13 +1,26 @@
 <app-menu></app-menu>
 
-<div class="container mt-5" *ngFor="let item of list">
-  <div class="row">
-    <div class="col-2">
-      {{item.name}}
+<div *ngIf="show_caterogies">
+  <div class="container mt-5" *ngFor="let item of list">
+    <div class="row">
+      <div class="col-2">
+        {{item.name}}
+      </div>
+      <div class="col-1">
+        <i class="navbar-toggler-icon fa fa-pencil"> </i>
+        <i class="navbar-toggler-icon fa fa-trash"> </i>
+      </div>
     </div>
-    <div class="col-1">
-      <i class="navbar-toggler-icon fa fa-pencil"> </i>
-      <i class="navbar-toggler-icon fa fa-trash"> </i>
+  </div>
+</div>
+
+
+<div class="row mt-5 mb-5" *ngIf="is_spinner">
+  <div class="col-3">
+    <div class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
     </div>
   </div>
 </div>

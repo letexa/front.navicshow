@@ -27,6 +27,13 @@ export class ListComponent {
      */
     private limit: number;
 
+    /**
+     * Надо ли выводить спиннер
+     */
+    private is_spinner: boolean = false;
+
+    private show_caterogies: boolean = true;
+
     constructor(
         private repository: CategoryRest, 
         private router: Router, 
@@ -58,6 +65,9 @@ export class ListComponent {
      * @param activeRoute ActivatedRoute
      */
     private pageRendering(activeRoute: ActivatedRoute) {
+
+        this.showSpinner();
+
         activeRoute.params.subscribe(params => {
 
             let is_update = false;
@@ -74,10 +84,39 @@ export class ListComponent {
                     .toPromise()
                     .then((data: any) => {
                         if (data.code == 200 && data.message) {
+                            this.is_spinner = false;
+                            this.show_caterogies = true;
                             this.categories = data.message;
                         }
                     });
             }
         });
+    }
+
+    /**
+     * Показывает спиннер загрузки. 
+     * Выводится, если категорий нет больше одной секунды.
+     * Спиннер показывать не меньше секунды, чтобы не было мимолетного показа
+     * и дерганий страницы.
+     * 
+     */
+    private showSpinner() {
+        let timer = 0;
+        let categories_interval = setInterval(() => {
+            timer += 100;
+            if (timer >= 1000 && this.categories.length == 0) {
+                this.show_caterogies = false;
+                this.is_spinner = true;
+                clearInterval(categories_interval);
+                let spinner_interval = setInterval(() => {
+                    timer += 100;
+                    if (timer >= 1000 && this.categories.length > 0) {
+                        this.is_spinner = false;
+                        this.show_caterogies = true;
+                        clearInterval(spinner_interval);
+                    }
+                }, 100);
+            }
+        }, 100);
     }
 }
