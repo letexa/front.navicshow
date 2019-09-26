@@ -9,7 +9,7 @@
         </li>
         <ng-template #elsePrevious>
           <li class="page-item">
-            <a class="page-link" href="#" [routerLink] = "[url+'/'+previousNumber]">Previous</a>
+            <a class="page-link" href="#" [routerLink] = "previousNumber > 1 ? [url+'/'+previousNumber] : [url]">Previous</a>
           </li>
         </ng-template>
         
@@ -18,7 +18,7 @@
                 {{number}}
             </span>
           <ng-template #elsePageLink>
-            <a class="page-link" href="" [routerLink] = "[url+'/'+number]">
+            <a class="page-link" href="" [routerLink] = "number > 1 ? [url+'/'+number] : [url]">
               {{number}}
             </a>
           </ng-template>

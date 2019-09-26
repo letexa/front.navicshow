@@ -121,10 +121,10 @@ export class PaginationComponent {
             if (this._currentPage > this.numbersLimit - 2) {
                 i = this._currentPage - (this.numbersLimit - 2) + 1;
             }
-
             if (i > (this.pagesTotal - this.numbersLimit) + 1) {
                 i = (this.pagesTotal - this.numbersLimit) + 1;
             }
+            i = i <= 0 ? 1 : i;
 
             for (let k = 1; k <= this.numbersLimit; k++, i++) {
                 if (i <= this.pagesTotal) {
