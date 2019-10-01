@@ -1,6 +1,13 @@
   <app-menu></app-menu>
 
-  <h1 class="mt-5">Добавление категории</h1>
+  <h1 class="mt-5">
+    <span *ngIf="!isEdit; else editTitle">
+      Добавление категории
+    </span>
+    <ng-template #editTitle>
+        <span>Редактирование категории</span>
+    </ng-template>
+  </h1>
 
   <form #form="ngForm" 
     [formGroup]="formGroup"
@@ -25,7 +32,14 @@
       </ul>
     </div>
 
-    <button type="submit" class="btn btn-success">Создать</button>
+    <button type="submit" class="btn btn-success">
+      <span *ngIf="!isEdit; else editButton">
+        Создать
+      </span>
+      <ng-template #editButton>
+          <span>Редактировать</span>
+      </ng-template>
+    </button>
 
   </form>
 

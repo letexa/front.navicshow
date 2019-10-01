@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { Category } from '../category.model';
 import { CategoryRest } from '../category.rest.service';
 import { ActivatedRoute, Router } from "@angular/router";
+import { Rest } from "../../rest.model";
 
 @Component({
     selector: 'list-app',
     templateUrl: './list.component.html'
 })
 
-export class ListComponent { 
+export class ListComponent {
 
     private categories: Category[] = [];
 
@@ -30,13 +31,13 @@ export class ListComponent {
     /**
      * Надо ли выводить спиннер
      */
-    private is_spinner: boolean = false;
+    private isSpinner: boolean = false;
 
-    private show_caterogies: boolean = true;
+    private showCaterogies: boolean = true;
 
     constructor(
-        private repository: CategoryRest, 
-        private router: Router, 
+        private repository: CategoryRest,
+        private router: Router,
         private activeRoute: ActivatedRoute
     ) {
         this.limit = this.repository.limit;
@@ -45,9 +46,9 @@ export class ListComponent {
 
         this.repository.count()
             .toPromise()
-            .then((data: any) => {
-                if (data.code == 200 && data.message) {
-                    this.count = data.message;
+            .then((data: Rest) => {
+                if (data.code === 200 && data.message) {
+                    this.count = Number(data.message);
                 }
             });
 
@@ -70,23 +71,28 @@ export class ListComponent {
 
         activeRoute.params.subscribe(params => {
 
-            let is_update = false;
+            let isUpdate = false;
 
-            if (params['page'] && this.page != params['page']) {
-                this.page = params['page'];
-                is_update = true;
+            if (params.page && this.page !== params.page) {
+                this.page = params.page;
+                isUpdate = true;
             } else {
                 this.page = this.page ? this.page : 1;
             }
 
-            if (is_update || this.page == 1) {
+            if (isUpdate || this.page === 1) {
                 this.repository.all(this.page)
                     .toPromise()
-                    .then((data: any) => {
-                        if (data.code == 200 && data.message) {
-                            this.is_spinner = false;
-                            this.show_caterogies = true;
-                            this.categories = data.message;
+                    .then((data: Rest) => {
+                        if (data.code === 200 && data.message) {
+                            this.isSpinner = false;
+                            this.showCaterogies = true;
+                            this.categories = Object.keys(data.message).map(key => ({
+                                id: data.message[key].id,
+                                name: data.message[key].name,
+                                created: data.message[key].created,
+                                updated: data.message[key].updated
+                            }));
                         }
                     });
             }
@@ -94,7 +100,7 @@ export class ListComponent {
     }
 
     /**
-     * Показывает спиннер загрузки. 
+     * Показывает спиннер загрузки.
      * Выводится, если категорий нет больше одной секунды.
      * Спиннер показывать не меньше секунды, чтобы не было мимолетного показа
      * и дерганий страницы.
@@ -102,18 +108,18 @@ export class ListComponent {
      */
     private showSpinner() {
         let timer = 0;
-        let categories_interval = setInterval(() => {
+        const categoriesInterval = setInterval(() => {
             timer += 100;
-            if (timer >= 1000 && this.categories.length == 0) {
-                this.show_caterogies = false;
-                this.is_spinner = true;
-                clearInterval(categories_interval);
-                let spinner_interval = setInterval(() => {
+            if (timer >= 1000 && this.categories.length === 0) {
+                this.showCaterogies = false;
+                this.isSpinner = true;
+                clearInterval(categoriesInterval);
+                const spinnerInterval = setInterval(() => {
                     timer += 100;
                     if (timer >= 1000 && this.categories.length > 0) {
-                        this.is_spinner = false;
-                        this.show_caterogies = true;
-                        clearInterval(spinner_interval);
+                        this.isSpinner = false;
+                        this.showCaterogies = true;
+                        clearInterval(spinnerInterval);
                     }
                 }, 100);
             }

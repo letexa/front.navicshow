@@ -1,21 +1,23 @@
 <app-menu></app-menu>
 
-<div *ngIf="show_caterogies">
+<div *ngIf="showCaterogies">
   <div class="container mt-5" *ngFor="let item of list">
     <div class="row">
-      <div class="col-2">
+      <div class="col-4">
         {{item.name}}
       </div>
       <div class="col-1">
-        <i class="navbar-toggler-icon fa fa-pencil"> </i>
-        <i class="navbar-toggler-icon fa fa-trash"> </i>
+        <a href="" [routerLink] = "['/category/edit/'+item.id]">
+            <i class="navbar-toggler-icon fa fa-pencil"></i>
+        </a>
+        <i class="navbar-toggler-icon fa fa-trash"></i>
       </div>
     </div>
   </div>
 </div>
 
 
-<div class="row mt-5 mb-5" *ngIf="is_spinner">
+<div class="row mt-5 mb-5" *ngIf="isSpinner">
   <div class="col-3">
     <div class="text-center">
       <div class="spinner-border" role="status">

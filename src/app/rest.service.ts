@@ -8,46 +8,63 @@ import { AppConfig } from './app.config';
 export class RestService {
 
   private apiServer;
-  private httpOptions;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.apiServer = AppConfig.settings.apiServer;
-    this.httpOptions = {
-      params: new HttpParams().set('authorization', this.apiServer.token)
-    }
   }
   
   /**
    * Отправление GET запроса в api
    * @param data Объект с параметрами
    */
-  get(uri: string, data?: object): Observable<any> {
+  get(uri: string, data?: object): Observable<object> {
+    const httpOptions = {
+      params: new HttpParams().set('authorization', this.apiServer.token)
+    }
 
     if (data) {
-      for (let key in data) {
-        if (this.httpOptions.params.get(key)) {
-          this.httpOptions.params = this.httpOptions.params.set(key, data[key]);
+      for (const key in data) {
+        if (httpOptions.params.get(key)) {
+          httpOptions.params = httpOptions.params.set(key, data[key]);
         } else {
-          this.httpOptions.params = this.httpOptions.params.append(key, data[key]);
+          httpOptions.params = httpOptions.params.append(key, data[key]);
         }
       }
     }
 
     return this.http.get(
         this.apiServer.protocol + '://' + this.apiServer.host + '/' + uri,
-        this.httpOptions
+        httpOptions
       ).pipe(
         catchError(this.handleError)
       );
   }
 
-  put(uri: string, data: object): Observable<any> {
+  put(uri: string, data: object): Observable<object> {
+    const httpOptions = {
+      params: new HttpParams().set('authorization', this.apiServer.token)
+    }
+
     return this.http.put(
       this.apiServer.protocol + '://' + this.apiServer.host + '/' + uri, 
       data, 
-      this.httpOptions
-    )
-    .pipe(
+      httpOptions
+    ).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  patch(uri: string, data: object): Observable<object> {
+    const httpOptions = {
+      params: new HttpParams()
+        .set('authorization', this.apiServer.token)
+    }
+    
+    return this.http.patch(
+      this.apiServer.protocol + '://' + this.apiServer.host + '/' + uri,
+      data,
+      httpOptions
+    ).pipe(
       catchError(this.handleError)
     );
   }
