@@ -52,13 +52,23 @@ export class ListComponent {
                 }
             });
 
-        router.events.subscribe((event) => {
-            this.pageRendering(activeRoute);
+        this.router.events.subscribe((event) => {
+            this.pageRendering(this.activeRoute);
         });
     }
 
     get list() {
         return this.categories;
+    }
+
+    public deleteCategory(id: number) {
+        this.repository.delete(id, res => {
+            if (res.code === 200) {
+                this.categories = this.categories.filter(item => item.id !== id);
+                this.pageRendering(this.activeRoute);
+                this.count -= 1;
+            }
+        });
     }
 
     /**

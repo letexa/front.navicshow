@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AppConfig } from './app.config';
@@ -63,6 +63,21 @@ export class RestService {
     return this.http.patch(
       this.apiServer.protocol + '://' + this.apiServer.host + '/' + uri,
       data,
+      httpOptions
+    ).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  delete(uri: string, data: object): Observable<object> {
+    const httpOptions = {
+      params: new HttpParams().set('authorization', this.apiServer.token),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      body: data
+    };
+
+    return this.http.delete(
+      this.apiServer.protocol + '://' + this.apiServer.host + '/' + uri,
       httpOptions
     ).pipe(
       catchError(this.handleError)

@@ -10,7 +10,9 @@
         <a href="" [routerLink] = "['/category/edit/'+item.id]">
             <i class="navbar-toggler-icon fa fa-pencil"></i>
         </a>
-        <i class="navbar-toggler-icon fa fa-trash"></i>
+        <a href="" [routerLink] = "" (click) = "deleteCategory(item.id)">
+          <i class="navbar-toggler-icon fa fa-trash"></i>
+        </a>
       </div>
     </div>
   </div>

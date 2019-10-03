@@ -30,6 +30,9 @@ export class CategoryRest {
       return this.rest.get('category/list', params);
     }
 
+    /**
+     * Сколько всего категорий в базе
+     */
     count() {
       return this.rest.get('category/count');
     }
@@ -56,7 +59,17 @@ export class CategoryRest {
     update(category: Category, callback: (res: Rest) => void) {
       this.rest.patch('category/update', { id: category.id, name: category.name })
         .subscribe((res) => {
-          console.log(res);
+          const response = new Rest();
+          Object.keys(res).map(key => {
+            response[key] = res[key];
+          });
+          callback(res);
+        });
+    }
+
+    delete(id: number, callback: (res: Rest) => void) {
+      this.rest.delete('category/delete', { id: id })
+        .subscribe((res) => {
           const response = new Rest();
           Object.keys(res).map(key => {
             response[key] = res[key];
