@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 import { Category } from '../category.model';
 import { CategoryRest } from '../category.rest.service';
-import { ActivatedRoute, Router } from "@angular/router";
 import { Rest } from "../../rest.model";
 
+@AutoUnsubscribe()
 @Component({
-    selector: 'list-app',
     templateUrl: './list.component.html'
 })
 
@@ -35,14 +37,26 @@ export class ListComponent {
 
     private showCaterogies: boolean = true;
 
+    /**
+     * Список подписок
+     */
+    private subscriptions: Subscription = new Subscription();
+
     constructor(
         private repository: CategoryRest,
         private router: Router,
         private activeRoute: ActivatedRoute
-    ) {
+    ) { }
+
+    get list() {
+        return this.categories;
+    }
+
+    // tslint:disable-next-line: use-life-cycle-interface
+    ngOnInit() {
         this.limit = this.repository.limit;
 
-        this.pageRendering(activeRoute);
+        this.pageRendering(this.activeRoute);
 
         this.repository.count()
             .toPromise()
@@ -52,14 +66,15 @@ export class ListComponent {
                 }
             });
 
-        this.router.events.subscribe((event) => {
-            this.pageRendering(this.activeRoute);
-        });
+        this.subscriptions.add(
+            this.router.events.subscribe((event) => {
+                this.pageRendering(this.activeRoute);
+            })
+        );
     }
 
-    get list() {
-        return this.categories;
-    }
+    // tslint:disable-next-line: use-life-cycle-interface
+    ngOnDestroy() { }
 
     public deleteCategory(id: number) {
         this.repository.delete(id, res => {
@@ -79,34 +94,36 @@ export class ListComponent {
 
         this.showSpinner();
 
-        activeRoute.params.subscribe(params => {
+        this.subscriptions.add (
+            activeRoute.params.subscribe(params => {
 
-            let isUpdate = false;
-
-            if (params.page && this.page !== params.page) {
-                this.page = params.page;
-                isUpdate = true;
-            } else {
-                this.page = this.page ? this.page : 1;
-            }
-
-            if (isUpdate || this.page === 1) {
-                this.repository.all(this.page)
-                    .toPromise()
-                    .then((data: Rest) => {
-                        if (data.code === 200 && data.message) {
-                            this.isSpinner = false;
-                            this.showCaterogies = true;
-                            this.categories = Object.keys(data.message).map(key => ({
-                                id: data.message[key].id,
-                                name: data.message[key].name,
-                                created: data.message[key].created,
-                                updated: data.message[key].updated
-                            }));
-                        }
-                    });
-            }
-        });
+                let isUpdate = false;
+    
+                if (params.page && this.page !== params.page) {
+                    this.page = params.page;
+                    isUpdate = true;
+                } else {
+                    this.page = this.page ? this.page : 1;
+                }
+    
+                if (isUpdate || this.page === 1) {
+                    this.repository.all(this.page)
+                        .toPromise()
+                        .then((data: Rest) => {
+                            if (data.code === 200 && data.message) {
+                                this.isSpinner = false;
+                                this.showCaterogies = true;
+                                this.categories = Object.keys(data.message).map(key => ({
+                                    id: data.message[key].id,
+                                    name: data.message[key].name,
+                                    created: data.message[key].created,
+                                    updated: data.message[key].updated
+                                }));
+                            }
+                        });
+                }
+            })
+        );
     }
 
     /**
