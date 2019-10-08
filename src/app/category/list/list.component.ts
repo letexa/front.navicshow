@@ -52,7 +52,6 @@ export class ListComponent {
         return this.categories;
     }
 
-    // tslint:disable-next-line: use-life-cycle-interface
     ngOnInit() {
         this.limit = this.repository.limit;
 
@@ -73,7 +72,6 @@ export class ListComponent {
         );
     }
 
-    // tslint:disable-next-line: use-life-cycle-interface
     ngOnDestroy() { }
 
     public deleteCategory(id: number) {

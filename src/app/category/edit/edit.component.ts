@@ -38,7 +38,6 @@ export class EditComponent {
         private activeRoute: ActivatedRoute
     ) { }
 
-    // tslint:disable-next-line: use-life-cycle-interface
     ngOnInit() {
         this.subscriptions.add(
             this.activeRoute.params.subscribe(params => {
@@ -57,7 +56,6 @@ export class EditComponent {
         );
     }
 
-    // tslint:disable-next-line: use-life-cycle-interface
     ngOnDestroy() { }
 
     submitForm(form: NgForm) {
