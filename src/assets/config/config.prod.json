@@ -9,5 +9,8 @@
   },
   "category": {
     "limit": 10
+  },
+  "article": {
+    "limit": 5
   }
 }

@@ -1,8 +1,8 @@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
-export class CategoryFormControl extends FormControl {
-  label: string;
-  modelProperty: string;
+export class ArticleFormControl extends FormControl {
+  private label: string;
+  private modelProperty: string;
 
   constructor(label: string, property: string, value: any, validator: any) {
     super(value, validator);
@@ -28,10 +28,10 @@ export class CategoryFormControl extends FormControl {
   }
 }
 
-export class CategoryFormGroup extends FormGroup {
+export class ArticleFormGroup extends FormGroup {
   constructor() {
     super({
-      name: new CategoryFormControl("Название", "name", "", 
+      name: new ArticleFormControl('Название', 'name', '',
         Validators.compose([
           Validators.required,
           Validators.minLength(3)
@@ -39,14 +39,14 @@ export class CategoryFormGroup extends FormGroup {
     });
   }
 
-  get categoryControls(): CategoryFormControl[] {
+  get articleControls(): ArticleFormControl[] {
     return Object.keys(this.controls)
-      .map(k => this.controls[k] as CategoryFormControl);
+      .map(k => this.controls[k] as ArticleFormControl);
   }
 
-  getFormValidationMessages(form:any) : string[] {
-    let messages: string[] = [];
-    this.categoryControls.forEach(c => c.getValidationMessages()
+  getFormValidationMessages(form: any): string[] {
+    const messages: string[] = [];
+    this.articleControls.forEach(c => c.getValidationMessages()
       .forEach(m => messages.push(m)));
     return messages;
   }

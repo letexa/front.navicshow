@@ -6,7 +6,7 @@ import { EditComponent } from './edit.component';
 
 @NgModule({
   declarations: [EditComponent],
-  imports: [ 
+  imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
