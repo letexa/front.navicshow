@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { NgForm } from "@angular/forms";
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ArticleFormGroup } from "./form.model";
-import { ArticleRest } from "../article.rest.service";
-import { Article } from "../article.model";
+import { ArticleFormGroup } from './form.model';
+import { ArticleRest } from '../article.rest.service';
+import { Article } from '../article.model';
+import { Category } from '../../category/category.model';
+import { CategoryRest } from '../../category/category.rest.service';
+import { Rest } from '../../rest.model';
 
 @Component({
     templateUrl: './edit.component.html'
@@ -19,11 +22,31 @@ export class EditComponent {
 
     private article: Article;
 
+    private categories: Category[];
+
     constructor(
-        private rest: ArticleRest,
+        private articleRest: ArticleRest,
+        private categoryRest: CategoryRest,
         private router: Router,
         private activeRoute: ActivatedRoute
     ) { }
+
+    ngOnInit() {
+        this.categoryRest.all()
+            .toPromise()
+            .then((data: Rest) => {
+                if (data.code === 200 && data.message) {
+                    /*this.isSpinner = false;
+                    this.showCaterogies = true;*/
+                    this.categories = Object.keys(data.message).map(key => ({
+                        id: data.message[key].id,
+                        name: data.message[key].name,
+                        created: data.message[key].created,
+                        updated: data.message[key].updated
+                    }));
+                }
+            });
+    }
 
     submitForm(form: NgForm) {
         this.formSubmitted = true;

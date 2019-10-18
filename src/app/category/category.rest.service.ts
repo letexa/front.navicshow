@@ -22,11 +22,14 @@ export class CategoryRest {
      * 
      * @param page Номер страницы
      */
-    all(page: number): Observable<any> {
-      let params = {
-        'limit': this.limit,
-        'offset': page
-      };
+    all(page: number|null = null): Observable<any> {
+      let params: any = {};
+      if (page !== null) {
+        params = {
+          limit: this.limit,
+          offset: page
+        };
+      }
       return this.rest.get('category/list', params);
     }
 
