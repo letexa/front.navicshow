@@ -39,6 +39,11 @@ export class ArticleFormGroup extends FormGroup {
       categoryId: new ArticleFormControl('Категория', 'categoryId', null,
         Validators.compose([
           Validators.required
+        ])),
+      text: new ArticleFormControl('Текст', 'text', '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(100)
         ]))
     });
   }

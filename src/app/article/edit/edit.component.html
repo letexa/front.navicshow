@@ -12,7 +12,7 @@
 <form #form="ngForm" 
   [formGroup]="formGroup"
   (ngSubmit)="submitForm(form)" 
-  class="ng-pristine ng-untouched ng-valid" 
+  class="ng-pristine ng-untouched ng-valid mb-5" 
   novalidate
   *ngIf="showForm"
 >
@@ -47,7 +47,19 @@
     </ul>
   </div>
 
-  <button type="submit" class="btn btn-success">
+  <app-ngx-editor 
+    [placeholder]="'Введите текст...'" 
+    [height]="400"
+    minHeight="300px"
+    formControlName="text"
+  ></app-ngx-editor>
+  <ul class="text-danger list-unstyled" *ngIf="(formSubmitted)">
+    <li *ngFor="let error of formGroup.controls.text.getValidationMessages()">
+      {{error}}
+    </li>
+  </ul>
+
+  <button type="submit" class="btn btn-success mt-5">
     <span *ngIf="!isEdit; else editButton">
       Создать
     </span>
