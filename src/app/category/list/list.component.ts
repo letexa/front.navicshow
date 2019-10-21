@@ -35,7 +35,7 @@ export class ListComponent {
      */
     private isSpinner: boolean = false;
 
-    private showCaterogies: boolean = true;
+    private showCaterogies: boolean = false;
 
     /**
      * Список подписок

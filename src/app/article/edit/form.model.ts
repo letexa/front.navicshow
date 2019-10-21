@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export class ArticleFormControl extends FormControl {
   private label: string;
@@ -35,6 +35,10 @@ export class ArticleFormGroup extends FormGroup {
         Validators.compose([
           Validators.required,
           Validators.minLength(3)
+        ])),
+      categoryId: new ArticleFormControl('Категория', 'categoryId', null,
+        Validators.compose([
+          Validators.required
         ]))
     });
   }

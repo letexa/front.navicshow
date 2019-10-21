@@ -16,23 +16,16 @@
       </div>
     </div>
   </div>
+
+  <app-pagination
+    [currentPage]="page" 
+    [itemTotal]="count"
+    [limit]="limit"
+    [url]="'/category'"
+  >
+  </app-pagination>
 </div>
 
+<app-spinner [isShow]="isSpinner"></app-spinner>
 
-<div class="row mt-5 mb-5" *ngIf="isSpinner">
-  <div class="col-3">
-    <div class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-  </div>
-</div>
 
-<app-pagination
-  [currentPage]="page" 
-  [itemTotal]="count"
-  [limit]="limit"
-  [url]="'/category'"
->
-</app-pagination>

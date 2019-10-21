@@ -24,6 +24,8 @@ export class EditComponent {
 
     private categories: Category[];
 
+    private showForm: boolean = false;
+
     constructor(
         private articleRest: ArticleRest,
         private categoryRest: CategoryRest,
@@ -36,8 +38,7 @@ export class EditComponent {
             .toPromise()
             .then((data: Rest) => {
                 if (data.code === 200 && data.message) {
-                    /*this.isSpinner = false;
-                    this.showCaterogies = true;*/
+                    this.showForm = true;
                     this.categories = Object.keys(data.message).map(key => ({
                         id: data.message[key].id,
                         name: data.message[key].name,
