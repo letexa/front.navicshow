@@ -12,10 +12,13 @@ export class ArticleRest {
 
     private config: any;
 
-    constructor(private rest: RestService) {
-      //this.config = AppConfig.settings.category;
-      //this.limit = this.config.limit;
-    }
+    constructor(private rest: RestService) {}
 
-    
+    public getUploadsUrl(): string {
+      return this.rest.apiServer.protocol +
+        '://' +
+        this.rest.apiServer.host +
+        '/file/upload?authorization=' +
+        this.rest.apiServer.token;
+    }
 }

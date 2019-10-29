@@ -7,7 +7,7 @@ import { AppConfig } from './app.config';
 @Injectable()
 export class RestService {
 
-  private apiServer;
+  public apiServer: any;
 
   constructor(private http: HttpClient) {
     this.apiServer = AppConfig.settings.apiServer;

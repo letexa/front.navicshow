@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleFormGroup } from './form.model';
 import { ArticleRest } from '../article.rest.service';
@@ -26,12 +27,22 @@ export class EditComponent {
 
     private showForm: boolean = false;
 
+    private Editor = ClassicEditor;
+
+    private editorConfig: any;
+
     constructor(
         private articleRest: ArticleRest,
         private categoryRest: CategoryRest,
         private router: Router,
         private activeRoute: ActivatedRoute
-    ) { }
+    ) {
+        this.editorConfig = {
+            ckfinder: {
+               uploadUrl: articleRest.getUploadsUrl(),
+            }
+         };
+    }
 
     ngOnInit() {
         this.categoryRest.all()

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxEditorModule } from 'ngx-editor';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ArticleMenuModule } from '../../widget/article-menu/article.menu.module';
 import { EditComponent } from './edit.component';
 import { SpinnerModule } from '../../widget/spinner/spinner.module';
@@ -14,7 +14,7 @@ import { SpinnerModule } from '../../widget/spinner/spinner.module';
     ReactiveFormsModule,
     ArticleMenuModule,
     SpinnerModule,
-    NgxEditorModule
+    CKEditorModule
   ],
 })
 
