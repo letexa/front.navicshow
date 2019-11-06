@@ -1,6 +1,6 @@
 <app-menu></app-menu>
 
-<div *ngIf="showCaterogies">
+<div class="mb-5" *ngIf="showCaterogies">
   <div class="container mt-5" *ngFor="let item of list">
     <div class="row">
       <div class="col-4">
@@ -17,12 +17,12 @@
     </div>
   </div>
 
-  <app-pagination
+<app-pagination
     [currentPage]="page" 
     [itemTotal]="count"
     [limit]="limit"
     [url]="'/category'"
-  >
+>
   </app-pagination>
 </div>
 

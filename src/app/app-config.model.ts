@@ -10,4 +10,7 @@ export interface IAppConfig {
   category: {
       limit: number;
   };
+  article: {
+      limit: number;
+  };
 }

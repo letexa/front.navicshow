@@ -64,21 +64,22 @@ export class EditComponent {
         this.formSubmitted = true;
         if (this.formGroup.valid) {
             this.article = this.article ? this.article : new Article();
-            this.article.name = form.value.name;
-            console.log(this.article);
-            /*if (!this.isEdit) {
-                this.rest.add(this.category, (res) => {
+            this.article.title = form.value.title;
+            this.article.categoryId = form.value.categoryId;
+            this.article.text = form.value.text;
+            if (!this.isEdit) {
+                this.articleRest.add(this.article, (res) => {
                     if (res.code && res.code === 200) {
-                        this.router.navigateByUrl('/category');
+                        this.router.navigateByUrl('/article');
                     }
                 });
             } else {
-                this.rest.update(this.category, (res) => {
+                this.articleRest.update(this.article, (res) => {
                     if (res.code && res.code === 200) {
-                        this.router.navigateByUrl('/category');
+                        this.router.navigateByUrl('/article/' + this.article.id);
                     }
                 });
-            }*/
+            }
         }
     }
 }

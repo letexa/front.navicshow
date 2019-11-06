@@ -31,7 +31,7 @@ export class ArticleFormControl extends FormControl {
 export class ArticleFormGroup extends FormGroup {
   constructor() {
     super({
-      name: new ArticleFormControl('Название', 'name', '',
+      title: new ArticleFormControl('Название', 'title', '',
         Validators.compose([
           Validators.required,
           Validators.minLength(3)

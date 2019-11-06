@@ -18,15 +18,15 @@
 >
 
   <div class="form-group col-4">
-    <label for="name">Название</label>
-    <input type="text" class="form-control" id="name"
-      formControlName="name"
+    <label for="title">Название</label>
+    <input type="text" class="form-control" id="title"
+      formControlName="title"
       required
       minlength="3"
     >
     <ul class="text-danger list-unstyled"
       *ngIf="(formSubmitted)">
-      <li *ngFor="let error of formGroup.controls.name.getValidationMessages()">
+      <li *ngFor="let error of formGroup.controls.title.getValidationMessages()">
         {{error}}
       </li>
     </ul>

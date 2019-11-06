@@ -5,7 +5,7 @@ import { Input, Component, SimpleChanges } from '@angular/core';
     templateUrl: './pagination.component.html'
 })
 
-export class PaginationComponent { 
+export class PaginationComponent {
 
     /**
      * Количество записей на странице

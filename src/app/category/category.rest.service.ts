@@ -10,9 +10,9 @@ export class CategoryRest {
 
     public limit: number;
 
-    private config;
+    private config: any;
 
-    constructor(private rest: RestService) { 
+    constructor(private rest: RestService) {
       this.config = AppConfig.settings.category;
       this.limit = this.config.limit;
     }
