@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from "rxjs";
 import { ArticleFormGroup } from './form.model';
 import { ArticleRest } from '../article.rest.service';
 import { Article } from '../article.model';
@@ -31,6 +32,11 @@ export class EditComponent {
 
     private editorConfig: any;
 
+     /**
+     * Список подписок
+     */
+    private subscriptions: Subscription = new Subscription();
+
     constructor(
         private articleRest: ArticleRest,
         private categoryRest: CategoryRest,
@@ -56,6 +62,32 @@ export class EditComponent {
                         created: data.message[key].created,
                         updated: data.message[key].updated
                     }));
+
+                    this.subscriptions.add(
+                        this.activeRoute.params.subscribe(params => {
+                            if (params.id !== undefined) {
+                                this.isEdit = true;
+                                this.articleRest.get(params.id)
+                                    .toPromise()
+                                    .then((data: Rest) => {
+                                        if (data.code === 200 && data.message) {
+                                            this.article = new Article();
+                                            this.article.id = data.message.id;
+                                            this.article.title = data.message.title;
+                                            this.article.text = data.message.text;
+                                            this.article.categoryId = data.message.category_id;
+                                            this.article.created = data.message.created;
+                                            this.article.updated = data.message.updated;
+                                            this.formGroup.setValue({
+                                                title: this.article.title,
+                                                categoryId: this.article.categoryId,
+                                                text: this.article.text
+                                            });
+                                        }
+                                    });
+                            }
+                        })
+                    );
                 }
             });
     }
@@ -76,7 +108,7 @@ export class EditComponent {
             } else {
                 this.articleRest.update(this.article, (res) => {
                     if (res.code && res.code === 200) {
-                        this.router.navigateByUrl('/article/' + this.article.id);
+                        this.router.navigateByUrl('/article/');
                     }
                 });
             }

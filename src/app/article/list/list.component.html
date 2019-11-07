@@ -3,19 +3,22 @@
 <div *ngIf="showArticles">
   <div class="container mt-5" *ngFor="let item of list">
     <div class="row">
-      <div class="col-4">
+      <div class="col-6">
         {{item.title}}
       </div>
-      <!--
-      <div class="col-1">
-        <a href="" [routerLink] = "['/category/edit/'+item.id]">
+
+      <div class="col-2">
+        <a href="" [routerLink] = "['/article/view/'+item.id]">
+            <i class="navbar-toggler-icon fa fa-eye"></i>
+        </a>
+        <a href="" [routerLink] = "['/article/edit/'+item.id]">
             <i class="navbar-toggler-icon fa fa-pencil"></i>
         </a>
-        <a href="" [routerLink] = "" (click) = "deleteCategory(item.id)">
+        <a href="" [routerLink] = "" (click) = "deleteArticle(item.id)">
           <i class="navbar-toggler-icon fa fa-trash"></i>
         </a>
       </div>
-    -->
+
     </div>
   </div>
 </div>
