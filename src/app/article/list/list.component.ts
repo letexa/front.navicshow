@@ -74,6 +74,16 @@ export class ListComponent {
 
     ngOnDestroy() { }
 
+    public deleteArticle(id: number) {
+        this.repository.delete(id, res => {
+            if (res.code === 200) {
+                this.articles = this.articles.filter(item => item.id !== id);
+                this.pageRendering(this.activeRoute);
+                this.count -= 1;
+            }
+        });
+    }
+
     /**
      * Запрос списка статей в зависимости от текущей страницы
      * @param activeRoute ActivatedRoute

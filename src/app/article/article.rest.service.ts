@@ -88,4 +88,15 @@ export class ArticleRest {
     get(id: number): Observable<any> {
         return this.rest.get('article/' + id);
     }
+
+    delete(id: number, callback: (res: Rest) => void) {
+        this.rest.delete('article/delete', { id: id })
+          .subscribe((res) => {
+            const response = new Rest();
+            Object.keys(res).map(key => {
+              response[key] = res[key];
+            });
+            callback(res);
+          });
+      }
 }
