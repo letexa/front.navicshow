@@ -22,7 +22,6 @@ speed-measure-plugin.json
 *.launch
 .settings/
 *.sublime-workspace
-/Navicshow.code-workspace
 
 # IDE - VSCode
 .vscode/*
@@ -45,4 +44,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-/nbproject/private/
