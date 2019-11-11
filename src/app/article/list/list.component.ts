@@ -109,15 +109,13 @@ export class ListComponent {
                         .toPromise()
                         .then((data: Rest) => {
                             if (data.code === 200 && data.message) {
+                                console.log(data.message);
                                 this.isSpinner = false;
                                 this.showArticles = true;
                                 this.articles = Object.keys(data.message).map(key => ({
                                     id: data.message[key].id,
                                     title: data.message[key].title,
-                                    text: data.message[key].text,
-                                    categoryId: data.message[key].category_id,
-                                    created: data.message[key].created,
-                                    updated: data.message[key].updated
+                                    preview: data.message[key].preview,
                                 }));
                             }
                         });

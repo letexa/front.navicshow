@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from "rxjs";
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { ArticleFormGroup } from './form.model';
 import { ArticleRest } from '../article.rest.service';
 import { Article } from '../article.model';
@@ -10,6 +11,7 @@ import { Category } from '../../category/category.model';
 import { CategoryRest } from '../../category/category.rest.service';
 import { Rest } from '../../rest.model';
 
+@AutoUnsubscribe()
 @Component({
     templateUrl: './edit.component.html'
 })
@@ -92,6 +94,8 @@ export class EditComponent {
             });
     }
 
+    ngOnDestroy() { }
+
     submitForm(form: NgForm) {
         this.formSubmitted = true;
         if (this.formGroup.valid) {
@@ -108,7 +112,7 @@ export class EditComponent {
             } else {
                 this.articleRest.update(this.article, (res) => {
                     if (res.code && res.code === 200) {
-                        this.router.navigateByUrl('/article/');
+                        this.router.navigateByUrl('/article/view/' + this.article.id);
                     }
                 });
             }

@@ -5,6 +5,7 @@ export class Article {
       public title?: string,
       public categoryId?: number,
       public text?: string,
-      public created?: object,
-      public updated?: object) { }
+      public preview?: string,
+      public created?: Date,
+      public updated?: Date) { }
 }
